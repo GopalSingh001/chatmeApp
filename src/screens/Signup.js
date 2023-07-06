@@ -1,3 +1,4 @@
+
 import {
   View,
   Text,
@@ -10,6 +11,7 @@ import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
 import uuid from 'react-native-uuid';
+
 const Signup = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -31,37 +33,72 @@ const Signup = () => {
         userId: userId,
       })
       .then(res => {
-        console.log('user created ');
+        console.log('user created');
         navigation.navigate('Login');
       })
       .catch(error => {
         console.log(error);
       });
   };
+
   const validate = () => {
-    let isValid = true;
-    if (name == '') {
-      isValid = false;
+    if (name === '') {
+      Alert.alert('Please enter your name');
+      return false;
     }
-    if (email == '') {
-      isValid = false;
+    if (name.length > 20) {
+      Alert.alert('Name should not exceed 20 characters');
+      return false;
     }
-    if (mobile == '') {
-      isValid = false;
+    if (email === '') {
+      Alert.alert('Please enter your email');
+      return false;
     }
-    if (password == '') {
-      isValid = false;
+    if (!validateEmail(email)) {
+      Alert.alert('Please enter a valid email address');
+      return false;
     }
-    if (confirmPassword == '') {
-      isValid = false;
+    if (mobile === '') {
+      Alert.alert('Please enter your mobile number');
+      return false;
+    }
+    if (!validateMobileNumber(mobile)) {
+      Alert.alert('Please enter a valid 10-digit mobile number');
+      return false;
+    }
+    if (password === '') {
+      Alert.alert('Please enter your password');
+      return false;
+    }
+    if (password.length < 8) {
+      Alert.alert('Password should be at least 8 characters');
+      return false;
+    }
+    if (confirmPassword === '') {
+      Alert.alert('Please confirm your password');
+      return false;
     }
     if (confirmPassword !== password) {
-      isValid = false;
+      Alert.alert('Passwords do not match');
+      return false;
     }
-    return isValid;
+    return true;
   };
+
+  const validateEmail = email => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validateMobileNumber = number => {
+    const mobileNumberRegex = /^\d{10}$/;
+    return mobileNumberRegex.test(number);
+  };
+  
+
   return (
     <View style={styles.container}>
+      <Text style={styles.titleTop}>Welcome to My Chat Me 1.0</Text>
       <Text style={styles.title}>Sign Up</Text>
       <TextInput
         placeholder="Enter Name"
@@ -84,12 +121,14 @@ const Signup = () => {
       />
       <TextInput
         placeholder="Enter Password"
+        secureTextEntry={true}
         style={[styles.input, { marginTop: 20 }]}
         value={password}
         onChangeText={txt => setPassword(txt)}
       />
       <TextInput
         placeholder="Enter Confirm Password"
+        secureTextEntry={true}
         style={[styles.input, { marginTop: 20 }]}
         value={confirmPassword}
         onChangeText={txt => setConfirmPassword(txt)}
@@ -99,14 +138,12 @@ const Signup = () => {
         onPress={() => {
           if (validate()) {
             registerUser();
-          } else {
-            Alert.alert('Please Enter Correct Data');
           }
         }}>
         <Text style={styles.btnText}>Sign up</Text>
       </TouchableOpacity>
       <Text
-        style={styles.orLogin}
+       style={styles.orLogin}
         onPress={() => {
           navigation.goBack();
         }}>
@@ -117,16 +154,25 @@ const Signup = () => {
 };
 
 export default Signup;
+
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
   },
+  titleTop:{
+    fontSize: 20,
+    color: 'black',
+    alignSelf: 'center',
+    marginTop:10,
+    color:'#f38d3f'
+  },
   title: {
     fontSize: 30,
     color: 'black',
     alignSelf: 'center',
-    marginTop: 100,
+    marginTop:10,
     fontWeight: '600',
   },
   input: {
@@ -134,7 +180,8 @@ const styles = StyleSheet.create({
     height: 50,
     borderWidth: 0.5,
     borderRadius: 10,
-
+    color:"black",
+    fontWeight:'bold',
     alignSelf: 'center',
     paddingLeft: 20,
   },
@@ -146,7 +193,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 50,
-    backgroundColor: '#40b7ad',
+    backgroundColor: '#f38d3f',
   },
   btnText: {
     color: 'white',
@@ -154,10 +201,12 @@ const styles = StyleSheet.create({
   },
   orLogin: {
     alignSelf: 'center',
-    marginTop: 50,
+    marginTop: 20,
     fontSize: 20,
     textDecorationLine: 'underline',
     fontWeight: '600',
     color: 'black',
   },
 });
+
+

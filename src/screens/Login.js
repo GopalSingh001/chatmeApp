@@ -51,6 +51,7 @@ const Login = () => {
   };
   return (
     <View style={styles.container}>
+      <Text style={styles.titleTop}>Welcome to My Chat Me 1.0</Text>
       <Text style={styles.title}>Login</Text>
 
       <TextInput
@@ -62,6 +63,7 @@ const Login = () => {
 
       <TextInput
         placeholder="Enter Password"
+        secureTextEntry={true}
         style={[styles.input, { marginTop: 20 }]}
         value={password}
         onChangeText={txt => setPassword(txt)}
@@ -92,11 +94,18 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
   },
+  titleTop:{
+    fontSize: 20,
+    color: 'black',
+    alignSelf: 'center',
+    marginTop:40,
+    color:'#f38d3f'
+  },
   title: {
     fontSize: 30,
     color: 'black',
     alignSelf: 'center',
-    marginTop: 100,
+    marginTop: 30,
     fontWeight: '600',
   },
   input: {
@@ -104,7 +113,8 @@ const styles = StyleSheet.create({
     height: 50,
     borderWidth: 0.5,
     borderRadius: 10,
-
+    color:"black",
+    fontWeight:'bold',
     alignSelf: 'center',
     paddingLeft: 20,
   },
@@ -116,7 +126,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 50,
-    backgroundColor: '#40b7ad',
+    backgroundColor: '#f38d3f',
   },
   btnText: {
     color: 'white',
@@ -124,7 +134,7 @@ const styles = StyleSheet.create({
   },
   orLogin: {
     alignSelf: 'center',
-    marginTop: 50,
+    marginTop: 30,
     fontSize: 20,
     textDecorationLine: 'underline',
     fontWeight: '600',

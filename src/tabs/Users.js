@@ -121,7 +121,7 @@ const Users = () => {
       ]}
     >
       <View style={styles.header}>
-        <Text style={styles.title}>Chat App</Text>
+        <Text style={styles.title}>Chat Me</Text>
         <TouchableOpacity onPress={logout} style={styles.logoutButton}>
           <Text style={styles.logoutButtonText}>Logout</Text>
         </TouchableOpacity>
@@ -160,13 +160,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    // width: '100%',
-    // height: 60,
-    // backgroundColor: 'white',
     elevation: 5,
-    // justifyContent: 'center',
-    // alignItems: 'center',
-
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -184,7 +178,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   title: {
-    color: '#40b7ad',
+    color: '#f38d3f',
     fontSize: 20,
     fontWeight: 'bold',
   },
